@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="bookupload.css">
+    <title>Books Upload</title>
+</head>
+
+<body>
+    <h1 class="heading">বইমেলা</h1>
+    <div class="btn">
+        <button class="button-89" role="button"><a href="bookcards.html">Home</a></button>
+         <button class="button-89" role="button"><a href="index.html">Logout</a></button>
+    </div>
+
+     <div class="main">
+    <div class="upload">
+    
+        <form onsubmit="event.preventDefault(); save()">
+            <label for="title">Book Title:</label><br>
+            <input type="text" id="title" placeholder="Add the Book Name" required><br>
+
+            <label for="author">Book Author:</label><br>
+            <input type="text" id="author" placeholder="Add the Author Name" required><br>
+
+            <label for="price">Book Price:</label><br>
+            <input type="number" id="price" placeholder="Enter Book Price " required><br>
+
+            <label for="image">Book Image:</label><br>
+            <input type="url" id="image" placeholder="Enter Book Url " accept="image/*"><br>
+
+            <input type="submit" value="Upload">
+            <div id="message"></div>
+        </form>
+    </div>
+    <div class="pic">
+        <img src="https://png.pngtree.com/png-vector/20211230/ourlarge/pngtree-children-reading-together-png-image_4106732.png" alt="">
+    </div>
+   </div>
+
+
+    <script>
+
+        function save() {
+            var title = document.getElementById("title").value;
+            var author = document.getElementById("author").value;
+            var price = document.getElementById("price").value;
+            var image = document.getElementById("image").value;
+            var id = generateUniqueId();
+            var user = { "id": id, "title": title, "author": author, "price": price, "image": image };
+
+            if (localStorage.getItem("newuser")) {
+                var newuser = JSON.parse(localStorage.getItem("newuser"));
+                newuser.push(user);
+                localStorage.setItem("newuser", JSON.stringify(newuser));
+            }
+            else {
+                var newuser = [];
+                newuser.push(user);
+                localStorage.setItem("newuser", JSON.stringify(newuser));
+            }
+            document.getElementById("message").innerHTML = "Success adding book details";
+            setTimeout(function () {
+                document.getElementById("message").style.display = "none";
+            })
+
+            window.location.href = "bookcards.html" +
+                "?title=" + encodeURIComponent(title) +
+                "&author=" + encodeURIComponent(author) +
+                "&price=" + encodeURIComponent(price) +
+                "&image=" + encodeURIComponent(image);
+            clear();
+        }
+        function clear() {
+            document.getElementById("title").value = "";
+            document.getElementById("author").value = "";
+            document.getElementById("price").value = "";
+            document.getElementById("image").value = "";
+        }
+        function generateUniqueId() {
+            var idCounter = localStorage.getItem("idCounter") || 0;
+            localStorage.setItem("idCounter", ++idCounter);
+            return idCounter;
+        }
+    </script>
+</body>
+
+</html>

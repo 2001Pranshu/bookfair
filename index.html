@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bookfair</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="form-structor">
+        <div class="signup">
+            <h2 class="form-title" id="signup"><span>or</span>Sign up</h2>
+            <div class="form-holder">
+                <input type="text" class="input" placeholder="Name" />
+                <input type="email" class="input" placeholder="Email" />
+                <input type="password" class="input" placeholder="Password" />
+            </div>
+            <button class="submit-btn">Sign up</button>
+        </div>
+        <div class="login slide-up">
+            <div class="center">
+                <h2 class="form-title" id="login"><span>or</span>Log in</h2>
+                <div class="form-holder">
+                    <input type="email" class="input" placeholder="Email" id="email" />
+                    <input type="password" class="input" placeholder="Password" id="password"/>
+                </div>
+                <button class="submit-btn" onclick="cheack()">Login</button>
+            </div>
+        </div>
+    </div>
+      <script src="index.js"></script>
+      <script>
+        function cheack(){
+            var num1 = document.getElementById("email").value;
+            var num2 = document.getElementById("password").value;
+    
+            
+            if(num1=="pranshu@gmail.com" && num2=="1234")
+            {
+                window.location.href="bookcards.html"
+            }else
+            {
+                alert("Wrong Password")
+            }
+
+        }
+
+    </script>
+</body>
+</html>
