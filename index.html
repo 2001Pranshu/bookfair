@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bookfair</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="form-structor">
+        <div class="signup">
+            <h2 class="form-title" id="signup"><span>or</span>Sign up</h2>
+            <form onsubmit="event.preventDefault(); registration()">
+                <div class="form-holder">
+                    <input type="text" class="input" id="name" placeholder="Name" required>
+                    <input type="text" class="input" id="email" placeholder="Email" required>
+                    <input type="password" class="input" id="password" placeholder="Password" required>
+                </div>
+                <button class="submit-btn sbtn"  id="savebtn">Sign up</button>
+               </form>
+        </div>
+        <div id="message" style="color: #292929 ;"><p id="message" style="display: none;">successfully added details</p></div>
+        <div class="login slide-up">
+            <div class="center">
+                <h2 class="form-title" id="login"><span>or</span>Log in</h2>
+                <form onsubmit="event.preventDefault(),login()">
+                    <div class="form-holder">
+                        <input type="email" class="input" placeholder="Email" id="log-email"  required/>
+                        <input type="password" class="input" placeholder="Password" id="log-password" required/>
+                    </div>
+                    <button type="submit" class="submit-btn" onclick="cheack()">Login</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script src="index.js"></script>
+      <script>
+        function registration() {
+            var name = document.getElementById("name").value;
+            var email = document.getElementById("email").value;
+            var password = document.getElementById("password").value;
+
+            var user = { "name": name, "email": email, "password": password};
+
+            if (localStorage.getItem("signinuser")) {
+                var newuser2 = JSON.parse(localStorage.getItem("signinuser"));
+                newuser2.push(user);
+                localStorage.setItem("signinuser", JSON.stringify(newuser2));
+            }
+            else {
+                var newuser2 = [user];
+                newuser2.push(user);
+                localStorage.setItem("signinuser", JSON.stringify(newuser2));
+            }
+            document.getElementById("message").innerHTML = "Your Registration is Successfull";
+            setTimeout(function () {
+                document.getElementById("message").style.display = "none";
+            }, 2000);
+
+            clear();
+            function clear() {
+                document.getElementById("name").value = "";
+                document.getElementById("email").value = "";
+                document.getElementById("password").value = "";
+            }
+        }
+    </script>
+<script>
+            function login() {
+                var email = document.getElementById("log-email").value;
+                var password = document.getElementById("log-password").value;
+
+                var userData = JSON.parse(localStorage.getItem("signinuser"));
+                if (userData) {
+                    var match = userData.find(function (user) {
+                        return user.email === email && user.password === password;
+                    });
+                    if (match) {
+                        window.location.href = 'bookcards.html';
+                    }
+                    else {
+                        document.getElementById('message').innerHTML = "Not Registered";
+                    }
+                }
+                else {
+                    document.getElementById('message').innerHTML = "404 not found";
+                }
+                setTimeout(function () {
+                    document.getElementById("message").style.display = "none";
+                }, 2000);
+
+                clear();
+            function clear()
+            {
+            document.getElementById("log-email").value = "";
+            document.getElementById("log-password").value = "";
+            }
+            }
+
+</script>
+</body>
+</html>
